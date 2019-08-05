@@ -9,21 +9,6 @@ server.use(express.json())
 
 server.get('/users', (req, res)=> {
   
-//   if(!res) {
-//     return res.status(500).json({message: 'Error getting users!!'})
-//     } else {
-//       Users.find()
-//         .then(users => {
-//         res.status(200).json(users)
-//       })
-//       .catch( error => {
-//         res.status(500).json({ error: "The users information could not be retrieved." })
-//       })
-//     }
-// })
-
-
-  
     Users.find()
       .then(users => {
         if(!users) {
@@ -39,19 +24,32 @@ server.get('/users', (req, res)=> {
 })
 
 
-//create a user to add to DB of Users
+// create a user to add to DB of Users
 
 
-// server.post('/hubs', (req, res)=> {
-//   const hubInformation = req.body;
-//   Hubs.add(hubInformation)
-//     .then(hub => {
-//       res.status(201).json(hub)
-//     })
-//     .catch( error => {
-//       res.status(500).json({message: 'error adding to the list of hubs'})
-//   })
-// })
+server.post('/users', (req, res)=> {
+  
+  const {name, bio} = req.body
+
+  const userInformation = req.body;
+  
+    if(!name || !bio){
+      return(
+        res.status(400).json({ errorMessage: "Please provide name and a bio for the user." })
+      )
+    }else {
+      return Users.insert(userInformation)
+        .then(user => {
+          res.status(201).json(user)
+        })
+        .catch( error => {
+          res.status(500).json({message: 'error adding to the list of users!!'})
+        })
+    }
+})
+
+//
+
 
 
 
@@ -71,6 +69,10 @@ server.get('/users', (req, res)=> {
 //       res.status(500).json({message: 'error deleting the hub'})
 //   })
 // })
+
+
+
+
 
 
 const port = 5000;
