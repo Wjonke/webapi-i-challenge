@@ -18,7 +18,7 @@ Use Node.js and Express to build an API that performs CRUD operations on users.
 
 ### Database access
 
-Database access will be done using the `db.js` file included inside the `data` folder. This file publishes the following methods:
+ x Database access will be done using the `db.js` file included inside the `data` folder. This file publishes the following methods:
 
 - `find()`: calling find returns a promise that resolves to an array of all the users contained in the database.
 - `findById()`: this method expects an `id` as it's only parameter and returns the user corresponding to the `id` provided or an empty array if no user with that `id` is found.
@@ -80,7 +80,7 @@ When the client makes a `POST` request to `/api/users`:
   - respond with HTTP status code `500` (Server Error).
   - return the following JSON object: `{ error: "There was an error while saving the user to the database" }`.
 
-When the client makes a `GET` request to `/api/users`:
+xxx    When the client makes a `GET` request to `/api/users`:
 
 - If there's an error in retrieving the _users_ from the database:
   - cancel the request.
