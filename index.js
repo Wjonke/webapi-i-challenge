@@ -56,18 +56,7 @@ server.get('/users/:id', (req, res)=> {
     })
 })
 
-
-//delete a user
-// server.delete('/hubs/:id', (req, res)=> {
-//   const hubId = req.params.id;
-//   Hubs.remove(hubId)
-//     .then(hub => {
-//       res.status(200).json({message: 'hub deleted successfully'});
-//     })
-//     .catch( error => {
-//       res.status(500).json({message: 'error deleting the hub'})
-//   })
-// })
+//Delete a user by ID
 server.delete('/users/:id', (req, res)=> {
   const ID = req.params.id
   
@@ -76,13 +65,41 @@ server.delete('/users/:id', (req, res)=> {
       if(!user) {
         return res.status(404).json({ message: "The user with the specified ID does not exist." })
       }else{
-        res.status(200).json(user)
+        res.status(200).json( {user, message:'User deleted'})
       }
     })
     .catch( error => {
       res.status(500).json({ error: "The user could not be removed" })
     })
 })
+
+//Edit a user's data'
+server.put('/users/:id', (req, res)=> {
+  const ID = req.params.id
+  const {name, bio} = req.body
+ 
+
+  if (!name || !bio) {
+    return(
+      res.status(400).json({ message: "Please provide name and a bio for the user." })
+    )
+  } else {
+    Users.update(ID, req.body)
+      .then( user => {
+        if(!user) {
+          return res.status(404).json({ message: "The user with the specified ID does not exist." })
+        } else {
+          res.status(200).json(user)
+        }   
+      })
+      .catch( error => {
+        res.status(500).json({ error: "The user information could not be modified." })
+      })
+  }
+})
+
+
+
 
 
 
