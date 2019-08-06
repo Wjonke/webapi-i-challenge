@@ -16,6 +16,12 @@ Use Node.js and Express to build an API that performs CRUD operations on users.
 - **CD into the folder** where you cloned the repository.
 - Type `npm install` to download all dependencies listed inside `package.json`.
 
+
+
+
+
+
+
 ### Database access
 
  x Database access will be done using the `db.js` file included inside the `data` folder. This file publishes the following methods:
@@ -27,6 +33,7 @@ Use Node.js and Express to build an API that performs CRUD operations on users.
 - `remove()`: the remove method accepts an `id` as it's first parameter and upon successfully deleting the user from the database it returns the number of records deleted.
 
 Now that we have a way to add, update, remove and retrieve data from the provided database, it is time to work on the API.
+
 
 ### Start the API and Implement Requirements
 
@@ -53,17 +60,15 @@ Inside `index.js` add the code necessary to implement the following _endpoints_:
 
 | Method | URL            | Description                                                                                                                       |
 | ------ | -------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-X   | POST   | /api/users     | Creates a user using the 
-    information sent inside the `request body`.                                                              |
-X   | GET    | /api/users     | Returns an array of all        
-    the user objects contained in the database.                                                               |
-| GET    | /api/users/:id | Returns the user object with the specified `id`.                                                                                  |
+X | POST   | /api/users | Creates a user using the information sent inside the `request body`.                                                              |
+X | GET    | /api/users | Returns an array of all the user objects contained in the database.                                                            |
+X | GET    | /api/users/:id | Returns the user object with the specified `id`.                                                                                  |
 | DELETE | /api/users/:id | Removes the user with the specified `id` and returns the deleted user.                                                            |
 | PUT    | /api/users/:id | Updates the user with the specified `id` using data from the `request body`. Returns the modified document, **NOT the original**. |
 
 #### Endpoint Specifications
 
-When the client makes a `POST` request to `/api/users`:
+X When the client makes a `POST` request to `/api/users`:
 
 - If the request body is missing the `name` or `bio` property:
 
@@ -82,14 +87,19 @@ When the client makes a `POST` request to `/api/users`:
   - respond with HTTP status code `500` (Server Error).
   - return the following JSON object: `{ error: "There was an error while saving the user to the database" }`.
 
-xxx    When the client makes a `GET` request to `/api/users`:
+
+
+
+X    When the client makes a `GET` request to `/api/users`:
 
 - If there's an error in retrieving the _users_ from the database:
   - cancel the request.
   - respond with HTTP status code `500`.
   - return the following JSON object: `{ error: "The users information could not be retrieved." }`.
 
-When the client makes a `GET` request to `/api/users/:id`:
+
+
+X When the client makes a `GET` request to `/api/users/:id`:
 
 - If the _user_ with the specified `id` is not found:
 
@@ -100,6 +110,9 @@ When the client makes a `GET` request to `/api/users/:id`:
   - cancel the request.
   - respond with HTTP status code `500`.
   - return the following JSON object: `{ error: "The user information could not be retrieved." }`.
+
+
+
 
 When the client makes a `DELETE` request to `/api/users/:id`:
 
@@ -112,6 +125,9 @@ When the client makes a `DELETE` request to `/api/users/:id`:
   - cancel the request.
   - respond with HTTP status code `500`.
   - return the following JSON object: `{ error: "The user could not be removed" }`.
+
+
+
 
 When the client makes a `PUT` request to `/api/users/:id`:
 

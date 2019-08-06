@@ -5,10 +5,8 @@ const Users = require('./data/db.js')
 const server = express();
 server.use(express.json())
 
-//see a list of users
-
+//get a list of all users
 server.get('/users', (req, res)=> {
-  
     Users.find()
       .then(users => {
         if(!users) {
@@ -20,19 +18,12 @@ server.get('/users', (req, res)=> {
     .catch( error => {
       res.status(500).json({ error: "The users information could not be retrieved." })
     })
-  
 })
 
-
 // create a user to add to DB of Users
-
-
 server.post('/users', (req, res)=> {
-  
   const {name, bio} = req.body
-
   const userInformation = req.body;
-  
     if(!name || !bio){
       return(
         res.status(400).json({ errorMessage: "Please provide name and a bio for the user." })
@@ -48,8 +39,23 @@ server.post('/users', (req, res)=> {
     }
 })
 
-//
+//get a single user from DB
+server.get('/users/:id', (req, res)=> {
+  const ID = req.params.id
+  
+  Users.findById(ID)
+    .then(user => {
+      if(!user) {
+        return res.status(404).json({ message: "The user with the specified ID does not exist." })
+      }else{
+        res.status(200).json(user)
+      }
+    })
+    .catch( error => {
+      res.status(500).json({ error: "The user information could not be retrieved." })
+    })
 
+})
 
 
 
